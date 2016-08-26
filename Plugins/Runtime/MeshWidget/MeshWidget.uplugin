@@ -1,0 +1,25 @@
+{
+	"FileVersion" : 3,
+	"Version" : 1,
+	"VersionName" : "1.0",
+	"FriendlyName" : "Mesh Widget Component",
+	"Description" : "Render UMG&Slate widgets on abitrary static mesh surface. For UE4.13.",
+	"Category" : "Widgets",
+	"CreatedBy" : "Santtu Keskinen",
+	"CreatedByURL" : "",
+	"DocsURL" : "",
+	"MarketplaceURL" : "",
+	"SupportURL" : "",
+	"EnabledByDefault" : true,
+	"CanContainContent" : false,
+	"IsBetaVersion" : false,
+	"Installed" : false,
+	"Modules" :
+	[
+		{
+			"Name" : "MeshWidget",
+			"Type" : "Runtime",
+			"LoadingPhase" : "Default"
+		}
+	]
+}
