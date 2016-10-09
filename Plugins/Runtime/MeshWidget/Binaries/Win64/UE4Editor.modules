@@ -1,8 +1,8 @@
 {
-	"Changelist" : 3106830,
-	"BuildId" : "1ae4919d-44fd-45d0-a5eb-4ae9bbe2b1dc",
+	"Changelist" : 3142249,
+	"BuildId" : "7fd9829c-8021-4b62-b69f-09e2c3cd6230",
 	"Modules" : 
 	{
-		"MeshWidget" : "UE4Editor-MeshWidget.dll"
+		"MeshWidget" : "UE4Editor-MeshWidget-8598.dll"
 	}
 }

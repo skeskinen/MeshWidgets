@@ -352,11 +352,10 @@ void UMeshWidgetComponent::PostEditChangeProperty(FPropertyChangedEvent& Propert
 
 		if( PropertyName == WidgetClassName )
 		{
-			Widget = nullptr;
-
-			RenderTarget->UpdateResourceImmediate(true); //clear the old widget render from texture, should probably set base material if set to none
-
-			UpdateWidget();
+			//in editor rendering is not working so this does nothing
+			//Widget = nullptr;
+			//RenderTarget->UpdateResourceImmediate(true); //clear the old widget render from texture, should probably set base material if set to none
+			//UpdateWidget();
 			MarkRenderStateDirty();
 		}
 		else if ( PropertyName == DrawSizeName || PropertyName == PivotName )
