@@ -1,12 +1,25 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 using UnrealBuildTool;
 
 public class MeshWidgets : ModuleRules
 {
-	public MeshWidgets(TargetInfo Target)
+	public MeshWidgets(ReadOnlyTargetRules Target) : base(Target)
 	{
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+        bEnforceIWYU = true;
+
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+
+        MinFilesUsingPrecompiledHeaderOverride = 1;
+        bFasterWithoutUnity = true;
+
+        PublicDependencyModuleNames.AddRange(
+            new string[] {
+                "Core",
+                "CoreUObject",
+                "Engine",
+                "InputCore",
+                "UnrealEd",
+            }
+        );
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
