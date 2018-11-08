@@ -180,22 +180,17 @@ void UMeshWidgetComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-#if !UE_SERVER
-	if (!IsRunningDedicatedServer())
-	{
-		UpdateWidget();
+    UpdateWidget();
 
-		if ( Widget == nullptr && !SlateWidget.IsValid() )
-		{
-			return;
-		}
+    if (Widget == nullptr && !SlateWidget.IsValid())
+    {
+        return;
+    }
 
-		if ( ShouldDrawWidget() )
-		{
-			DrawWidgetToRenderTarget(DeltaTime);
-		}
-	}
-#endif // !UE_SERVER
+    if (ShouldDrawWidget())
+    {
+        DrawWidgetToRenderTarget(DeltaTime);
+    }
 }
 
 bool UMeshWidgetComponent::ShouldDrawWidget() const
