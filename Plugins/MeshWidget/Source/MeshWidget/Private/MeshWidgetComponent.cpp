@@ -199,7 +199,7 @@ bool UMeshWidgetComponent::ShouldDrawWidget() const
 	if ( IsVisible() )
 	{
 		// If we don't tick when off-screen, don't bother ticking if it hasn't been rendered recently
-		if ( TickWhenOffscreen || GetWorld()->TimeSince(LastRenderTime) <= RenderTimeThreshold )
+		if ( TickWhenOffscreen || GetWorld()->TimeSince(GetLastRenderTime()) <= RenderTimeThreshold )
 		{
 			if ( GetWorld()->TimeSince(LastWidgetRenderTime) >= RedrawTime )
 			{
@@ -298,9 +298,9 @@ public:
 	UTextureRenderTarget2D* RenderTarget;
 };
 
-FActorComponentInstanceData* UMeshWidgetComponent::GetComponentInstanceData() const
+TStructOnScope < FActorComponentInstanceData > UMeshWidgetComponent::GetComponentInstanceData() const
 {
-	return new FMeshWidgetComponentInstanceData( this );
+	return MakeStructOnScope< FActorComponentInstanceData >(this);
 }
 
 void UMeshWidgetComponent::ApplyComponentInstanceData(FMeshWidgetComponentInstanceData* WidgetInstanceData)

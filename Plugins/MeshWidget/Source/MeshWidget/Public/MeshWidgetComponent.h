@@ -55,7 +55,8 @@ public:
 	// End MeshComponent
 	virtual UMaterialInterface* GetBaseMaterial() const;
 
-	FActorComponentInstanceData* GetComponentInstanceData() const override;
+	virtual TStructOnScope < FActorComponentInstanceData > GetComponentInstanceData() const;
+
 	
 	void ApplyComponentInstanceData(class FMeshWidgetComponentInstanceData* WidgetInstanceData);
 
