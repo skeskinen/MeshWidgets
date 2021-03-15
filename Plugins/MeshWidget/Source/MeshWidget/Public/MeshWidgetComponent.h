@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "WidgetComponent.h"
+#include "Components/WidgetComponent.h"
 #include "Runtime/UMG/Public/Blueprint/UserWidget.h"
 
 #include "MeshWidgetComponent.generated.h"
