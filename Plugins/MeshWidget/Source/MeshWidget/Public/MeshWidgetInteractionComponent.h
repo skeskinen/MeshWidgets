@@ -179,7 +179,7 @@ private:
 	 * the mouse and keyboard focus input (the viewport), so that things like the player controller recieve
 	 * standard hardware input.
 	 */
-	TSharedPtr<FSlateVirtualUser> VirtualUser;
+	TSharedPtr<FSlateVirtualUserHandle> VirtualUser;
 
 public:
 

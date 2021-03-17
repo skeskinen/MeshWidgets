@@ -2,7 +2,7 @@
 
 
 #include "MeshWidgetInteractionComponent.h"
-#include "WidgetLayoutLibrary.h"
+#include "UMG/Public/Blueprint/WidgetLayoutLibrary.h"
 #include "Runtime/Engine/Classes/Components/ArrowComponent.h"
 
 #include "Kismet/KismetSystemLibrary.h"

@@ -2,12 +2,12 @@
 
 #include "MeshWidgetComponent.h"
 
-#include "HittestGrid.h"
+#include "SlateCore/Public/Input/HittestGrid.h"
 #include "Runtime/SlateRHIRenderer/Public/Interfaces/ISlateRHIRendererModule.h"
 #include "Runtime/SlateRHIRenderer/Public/Interfaces/ISlate3DRenderer.h"
 #include "DynamicMeshBuilder.h"
 #include "Scalability.h"
-#include "WidgetLayoutLibrary.h"
+#include "UMG/Public/Blueprint/WidgetLayoutLibrary.h"
 #include "PhysicsEngine/BodySetup.h"
 #include "Slate/WidgetRenderer.h"
 #include "Widgets/Layout/SPopup.h"
@@ -20,6 +20,7 @@
 #include "Runtime/SlateCore/Public/Widgets/SWidget.h"
 #include "Runtime/UMG/Public/Blueprint/UserWidget.h"
 #include "Runtime/RenderCore/Public/RenderingThread.h"
+#include "Components/SceneComponent.h"
 
 
 DECLARE_CYCLE_STAT(TEXT("3DHitTesting"), STAT_Slate3DHitTesting, STATGROUP_Slate);
@@ -44,7 +45,7 @@ UMeshWidgetComponent::UMeshWidgetComponent( const FObjectInitializer& PCIP )
 	PrimaryComponentTick.bCanEverTick = true;
 	bTickInEditor = true;
 
-	RelativeRotation = FRotator::ZeroRotator;
+	SetRelativeRotation(FRotator::ZeroRotator);
 
 	BodyInstance.SetCollisionProfileName(FName(TEXT("UI")));
 
@@ -199,7 +200,7 @@ bool UMeshWidgetComponent::ShouldDrawWidget() const
 	if ( IsVisible() )
 	{
 		// If we don't tick when off-screen, don't bother ticking if it hasn't been rendered recently
-		if ( TickWhenOffscreen || GetWorld()->TimeSince(LastRenderTime) <= RenderTimeThreshold )
+		if ( TickWhenOffscreen || GetWorld()->TimeSince(GetLastRenderTime()) <= RenderTimeThreshold )
 		{
 			if ( GetWorld()->TimeSince(LastWidgetRenderTime) >= RedrawTime )
 			{
@@ -259,8 +260,8 @@ void UMeshWidgetComponent::DrawWidgetToRenderTarget(float DeltaTime)
 	bRedrawRequested = false;
 
 	WidgetRenderer->DrawWindow(
-		RenderTarget,
-		HitTestGrid.ToSharedRef(),
+		GetRenderTarget(),
+		HitTestGrid.ToSharedRef().Get(),
 		SlateWindow.ToSharedRef(),
 		DrawScale,
 		CurrentDrawSize,
@@ -298,9 +299,9 @@ public:
 	UTextureRenderTarget2D* RenderTarget;
 };
 
-FActorComponentInstanceData* UMeshWidgetComponent::GetComponentInstanceData() const
+TStructOnScope < FActorComponentInstanceData > UMeshWidgetComponent::GetComponentInstanceData() const
 {
-	return new FMeshWidgetComponentInstanceData( this );
+	return MakeStructOnScope< FActorComponentInstanceData >(this);
 }
 
 void UMeshWidgetComponent::ApplyComponentInstanceData(FMeshWidgetComponentInstanceData* WidgetInstanceData)
@@ -719,9 +720,9 @@ void UMeshWidgetComponent::PostLoad()
 	{	
 		// This indicates the value does not differ from the default.  In some rare cases this could cause incorrect rotation for anyone who directly set a value of 0,0,0 for rotation
 		// However due to delta serialization we have no way to know if this value is actually different from the default so assume it is not.
-		if( RelativeRotation == FRotator::ZeroRotator )
+		if( GetRelativeRotation() == FRotator::ZeroRotator )
 		{
-			RelativeRotation = FRotator(0.f, 0.f, 90.f);
+			SetRelativeRotation(FRotator(0.f, 0.f, 90.f));
 		}
 		bUseLegacyRotation = true;
 	}
